@@ -39,6 +39,58 @@ p, h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
+@property --rotate {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+button {
+  --blue: #0173ff;
+  --radius: 50px;
+  --rotate: 0deg;
+  padding: 16px 24px;
+  border-radius: var(--radius);
+  background: var(--blue);
+  color: white;
+  font-weight: 500;
+  font-size: clamp(1rem, 8dvw, 24px);
+  border: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.ring-around {
+  position: absolute;
+  inset: 0;
+  &:before {
+    content: "";
+    background: conic-gradient(from var(--rotate), transparent 0%, white 5%, transparent 10%);
+    position: absolute;;
+    inset: 0;
+    animation: rotate 2s linear infinite;
+  }
+  &:after {
+    content: "";
+    background: linear-gradient(180deg,#ccd3fe, hsl(221, 97%, 62%), #233bc4);
+    position: absolute;
+    inset: 2px;
+    border-radius: calc(var(--radius) - 2px);
+
+  }
+}
+
+.text {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes rotate {
+  to {
+    --rotate: 360deg;
+  }
+}
+
 body {
   background: #050505;
   color: #ffffff;
